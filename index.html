@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Potato's Safe Space 🥔💖</title>
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- TOAST NOTIFICATIONS -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- LOGIN PAGE -->
+    <div id="login-page" class="active">
+        <div class="stars"></div>
+        <div class="login-card">
+            <h1>Welcome Back, Potato 🥔💖</h1>
+            <p>Your safe space is waiting for you...</p>
+            <form id="login-form">
+                <input type="text" id="username" placeholder="Username" required autocomplete="off">
+                <input type="password" id="password" placeholder="Password" required>
+                <div id="login-error" class="hidden">Hmm… that doesn’t look right 🥺 try again, my potato 💕</div>
+                <button type="submit">Let me in ✨</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MAIN APP AREA -->
+    <div id="app-container" class="hidden">
+        
+        <!-- HEADER & NAVIGATION -->
+        <header class="global-header">
+            <div class="header-titles" style="display:flex; align-items:flex-start; gap: 15px;">
+                <div>
+                    <h1>Hi Potato 🥔💖</h1>
+                    <p>I hope today is kind to you 💕</p>
+                </div>
+                <button id="theme-toggle" class="icon-btn" style="font-size: 1.4rem; padding: 6px; border-radius: 50%; display:flex; align-items:center; justify-content:center; box-shadow: var(--shadow-soft);">🌙</button>
+            </div>
+            <nav class="top-nav">
+                <button class="nav-btn active-nav" data-target="view-dashboard">Dashboard 🏠</button>
+                <button class="nav-btn" data-target="view-calendar">Calendar 📅</button>
+                <button class="nav-btn" data-target="view-vault">Study Vault 📂</button>
+                <button class="nav-btn" data-target="view-game">Game 🎮</button>
+            </nav>
+        </header>
+
+        <!-- =========================
+             DASHBOARD VIEW
+        ========================== -->
+        <main id="view-dashboard" class="page-view active">
+            <div class="dashboard-grid">
+                
+                <!-- ROW 1 -->
+                <!-- Daily Note -->
+                <section class="card love-note-card">
+                    <h2>Daily Note 💌</h2>
+                    <div class="divider"></div>
+                    <div class="note-content">
+                        <p id="love-note-text">"I’m proud of you."</p>
+                        <button class="icon-btn" id="refresh-note-btn" title="New Note">🔄</button>
+                    </div>
+                </section>
+
+                <!-- Important Dates -->
+                <section class="card dates-card">
+                    <h2>Important Dates ⏳</h2>
+                    <div class="divider"></div>
+                    <form id="add-date-form" class="row">
+                        <input type="text" id="event-name" placeholder="Event Name" required>
+                        <input type="date" id="event-date" required>
+                        <button type="submit" class="small-btn">+</button>
+                    </form>
+                    <div id="dates-list" class="dates-list">
+                        <!-- Date items injected here -->
+                    </div>
+                </section>
+
+                <!-- ROW 2 -->
+                <!-- Goals Tracker -->
+                <section class="card goals-card">
+                    <h2>Goals & Targets 🎯</h2>
+                    <div class="divider"></div>
+                    <div class="progress-container">
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar-fill" id="goal-progress-fill"></div>
+                        </div>
+                        <p id="motivational-text" class="motivation-msg">Let's crush today's tasks!</p>
+                    </div>
+                    
+                    <div class="goals-inputs">
+                        <div class="goal-input-group">
+                            <input type="text" id="weekly-goal-input" placeholder="Weekly Goal...">
+                            <button id="add-weekly-goal" class="small-btn">+</button>
+                        </div>
+                    </div>
+                    <ul id="goals-list" class="task-list">
+                        <!-- Goals injected here -->
+                    </ul>
+                </section>
+
+                <!-- To-Do List -->
+                <section class="card todo-card">
+                    <h2>To-Do List 📝</h2>
+                    <div class="divider"></div>
+                    <form id="add-todo-form" class="row">
+                        <input type="text" id="todo-input" placeholder="What else to do today?" required>
+                        <button type="submit" class="small-btn">+</button>
+                    </form>
+                    <div class="task-sections">
+                        <div class="active-tasks">
+                            <h3>Pending</h3>
+                            <ul id="todo-list" class="task-list">
+                                <!-- Todos injected here -->
+                            </ul>
+                        </div>
+                        <div class="completed-tasks">
+                            <h3>Completed</h3>
+                            <ul id="completed-list" class="task-list completed-style">
+                                <!-- Completed injected here -->
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ROW 3 -->
+                <!-- Study Planner -->
+                <section class="card study-card">
+                    <h2>Study Planner 📚</h2>
+                    <div class="divider"></div>
+                    <form id="add-study-form">
+                        <input type="text" id="study-subject" placeholder="Subject (e.g. Anatomy)" required>
+                        <input type="text" id="study-task" placeholder="Task description" required>
+                        <div class="row">
+                            <input type="date" id="study-deadline">
+                            <select id="study-priority">
+                                <option value="low">Low 🟢</option>
+                                <option value="medium">Medium 🟡</option>
+                                <option value="high">High 🔴</option>
+                            </select>
+                            <button type="submit" class="small-btn">Add</button>
+                        </div>
+                    </form>
+                    <div class="task-list-container">
+                        <ul id="study-list" class="task-list">
+                            <!-- Study tasks injected here -->
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- AI Motivation Bot -->
+                <section class="card bot-card" style="display:flex; flex-direction:column; min-height: 400px; max-height: 450px; position:relative;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 5px;">
+                        <div>
+                            <h2 style="color: var(--accent-pink); font-size: 1.4rem;">Safe Space AI 🤖</h2>
+                            <p style="color: var(--text-light); font-size: 0.8rem; font-style:italic;">I'm here for you, potato 💕</p>
+                        </div>
+                        <button id="btn-ai-settings" class="icon-btn" title="AI Settings">⚙️</button>
+                    </div>
+                    <div class="divider" style="margin-bottom: 10px;"></div>
+                    <div id="chat-window" class="chat-window" style="flex-grow: 1; overflow-y: auto; background: var(--bg-soft); border-radius: 12px; padding: 15px; display:flex; flex-direction:column; gap:10px; margin-bottom: 15px;">
+                        <div class="message bot-message" style="background: var(--card-bg); padding: 10px 14px; border-radius: 12px; font-size: 0.95rem; align-self: flex-start; max-width: 85%; box-shadow: var(--shadow-sm);">Hello my potato 🥔💖. Let it all out. don't stress mwah.</div>
+                        <div id="ai-typing-indicator" class="hidden" style="align-self: flex-start; background: transparent; padding: 5px 10px; opacity: 0.7;">
+                            <span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>
+                        </div>
+                    </div>
+                    <form id="chat-form" class="chat-input-area" style="display:flex; gap:10px; margin:0;">
+                        <input type="text" id="chat-input" placeholder="Type anything..." required autocomplete="off" style="margin:0; flex-grow:1; border-radius: 20px;">
+                        <button type="submit" class="small-btn" style="border-radius:20px; white-space:nowrap;">Send 💌</button>
+                    </form>
+                </section>
+
+                <!-- ROW 4 (FULL WIDTH) -->
+                <!-- Schedule Maker -->
+                <section class="card schedule-card">
+                    <h2>Schedule Maker 📅</h2>
+                    <div class="divider"></div>
+                    <div class="schedule-grid">
+                        <div class="time-block">
+                            <label>Morning 🌅</label>
+                            <textarea id="schedule-morning" placeholder="What's planned?"></textarea>
+                        </div>
+                        <div class="time-block">
+                            <label>Afternoon ☀️</label>
+                            <textarea id="schedule-afternoon" placeholder="What's planned?"></textarea>
+                        </div>
+                        <div class="time-block">
+                            <label>Evening 🌇</label>
+                            <textarea id="schedule-evening" placeholder="What's planned?"></textarea>
+                        </div>
+                        <div class="time-block">
+                            <label>Night 🌙</label>
+                            <textarea id="schedule-night" placeholder="What's planned?"></textarea>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+
+        <!-- =========================
+             CALENDAR VIEW
+        ========================== -->
+        <main id="view-calendar" class="page-view hidden">
+            <header class="calendar-view-header">
+                <h1 style="color: var(--text-main); font-size: 2rem;">Study Calendar 🥔📅</h1>
+                <p style="color: var(--text-light); font-weight: 500; margin-top: 5px;">Let’s plan things gently, one day at a time 💕</p>
+                <p id="cal-support-msg" style="color: var(--accent-pink); font-size: 0.95rem; margin-top: 10px; font-weight: 600;">"You don’t have to do everything today 💕"</p>
+            </header>
+
+            <section class="card full-calendar-card">
+                <div class="calendar-header-row">
+                    <button id="prev-month" class="icon-btn">← Prev</button>
+                    <h2 id="month-year-display">Month Year</h2>
+                    <button id="next-month" class="icon-btn">Next →</button>
+                </div>
+                
+                <div class="divider" style="margin-bottom: 25px;"></div>
+                
+                <div class="calendar-dow">
+                    <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+                </div>
+                
+                <div id="calendar-days" class="calendar-grid-area">
+                    <!-- Days injected here -->
+                </div>
+            </section>
+        </main>
+
+        <!-- =========================
+             STUDY VAULT VIEW
+        ========================== -->
+        <main id="view-vault" class="page-view hidden">
+            <header class="calendar-view-header">
+                <h1 style="color: var(--text-main); font-size: 2rem;">Potato’s Study Vault 🥔📚</h1>
+                <p style="color: var(--text-light); font-weight: 500; margin-top: 5px;">All your hard work, organized beautifully 💕</p>
+            </header>
+
+            <!-- LAYER 1: VAULT HOME (SUBJECTS) -->
+            <div id="vault-home">
+                <section class="card" style="margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                    <form id="add-subject-form" class="row" style="margin-bottom:0;">
+                        <input type="text" id="subject-name" placeholder="New Subject Name (e.g. Anatomy)" required>
+                        <button type="submit" class="small-btn" style="white-space: nowrap;">Create Subject 📁</button>
+                    </form>
+                </section>
+                
+                <div id="vault-empty-state" class="hidden" style="text-align: center; padding: 30px; color: var(--text-light);">
+                    <h3 style="font-size: 1.4rem; color: var(--accent-lavender); margin-bottom: 10px;">Let’s start organizing your brilliance, potato 🥔✨</h3>
+                    <p>Create your first subject folder above!</p>
+                </div>
+
+                <div id="folder-grid" class="dashboard-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));">
+                    <!-- subjects injected here -->
+                </div>
+            </div>
+
+            <!-- LAYER 2: CHAPTERS VIEW -->
+            <div id="vault-chapters-view" class="hidden" style="animation: slideIn 0.3s ease;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap: wrap; gap: 15px; margin-bottom: 20px;">
+                    <div>
+                        <button id="btn-back-to-vault" class="small-btn outline-btn" style="margin-bottom: 10px;">← Back to Vault</button>
+                        <h2 id="layer2-subject-title" style="color: var(--accent-lavender); font-size: 1.8rem;">Anatomy</h2>
+                        <p style="color: var(--text-light); font-size: 0.9rem; font-style: italic;">Let's break this down into chapters 💕</p>
+                    </div>
+                </div>
+
+                <section class="card" style="margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                    <form id="add-chapter-form" class="row" style="margin-bottom:0;">
+                        <input type="text" id="chapter-name" placeholder="New Chapter Name (e.g. Cardiovascular System)" required>
+                        <button type="submit" class="small-btn" style="white-space: nowrap;">Add Chapter 📑</button>
+                    </form>
+                </section>
+
+                <div id="chapters-empty-state" class="hidden" style="text-align: center; padding: 20px; color: var(--text-light);">
+                    <h3 style="font-size: 1.2rem; margin-bottom:10px;">Let’s break this into chapters, potato 🥔💖</h3>
+                </div>
+
+                <div id="chapter-grid" class="dashboard-grid" style="grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));">
+                    <!-- chapters injected here -->
+                </div>
+            </div>
+
+            <!-- LAYER 3: NOTES VIEW -->
+            <div id="vault-notes-view" class="hidden" style="animation: slideIn 0.3s ease;">
+                <section class="card">
+                    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap: wrap; gap: 15px;">
+                        <div>
+                            <button id="btn-back-to-chapters" class="small-btn outline-btn" style="margin-bottom: 15px;">← Back to Chapters</button>
+                            <h2 id="layer3-chapter-title" style="color: var(--text-main); font-size: 1.5rem;">Cardiovascular System</h2>
+                            <p style="color: var(--text-light); font-size: 0.85rem; font-style: italic;" id="layer3-breadcrumb">Study Vault / Anatomy / Cardiovascular System</p>
+                        </div>
+                        <div style="display:flex; gap:10px; align-items:center; flex-wrap: wrap;">
+                            <select id="sort-notes" style="margin-bottom:0; max-width: 130px; padding: 10px;">
+                                <option value="date">Date Sort</option>
+                                <option value="name">Name Sort</option>
+                            </select>
+                            <input type="text" id="search-notes" placeholder="🔍 Search notes..." style="max-width: 180px; margin-bottom:0;">
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    
+                    <!-- Upload Drop Zone -->
+                    <div id="file-drop-zone" class="drop-zone">
+                        <div style="font-size: 2rem; margin-bottom: 10px;">☁️</div>
+                        <p style="font-weight: 600; font-size: 1.1rem; color: var(--text-main);">Drag & Drop files here or <span style="color:var(--accent-pink); cursor:pointer;" id="click-upload-trigger">Click to Upload</span></p>
+                        <p style="font-size:0.85rem; color:var(--text-light); margin-top:5px;">(Saved safely locally forever 🌱)</p>
+                        <input type="file" id="file-input" class="hidden" multiple>
+                    </div>
+                    
+                    <div id="notes-empty-state" class="hidden" style="text-align: center; padding: 30px; color: var(--text-light); font-weight: 500;">
+                        Wait, it's empty... start small, one note at a time 💕
+                    </div>
+
+                    <div id="files-list" class="files-list">
+                        <!-- files injected here -->
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- =========================
+             GAME VIEW
+        ========================== -->
+        <main id="view-game" class="page-view hidden">
+            <header class="calendar-view-header">
+                <h1 style="color: var(--text-main); font-size: 2rem;">Potato Beetle Run 🐞🥔💖</h1>
+                <p style="color: var(--text-light); font-weight: 500; margin-top: 5px;">Take a tiny break… you deserve it 💕</p>
+            </header>
+
+            <section class="card" style="position:relative; padding:0; overflow:hidden; border-radius: 12px; max-width: 800px; margin: 0 auto; min-height: 300px; display:flex; align-items:center; justify-content:center; background-color: var(--bg-soft);">
+                <!-- Game Canvas -->
+                <canvas id="game-canvas" width="800" height="300" style="display:block; width:100%; height:auto; background: transparent;"></canvas>
+                
+                <!-- Game Over/Start Overlay -->
+                <div id="game-overlay" style="position:absolute; top:0; left:0; width:100%; height:100%; background: var(--card-bg); opacity: 0.95; display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:10; text-align:center;">
+                    <h2 id="game-msg-title" style="color: var(--accent-pink); font-size: 2rem; margin-bottom: 10px;">Ready, potato? 🐞</h2>
+                    <p id="game-msg-sub" style="color: var(--text-light); font-weight: 600; margin-bottom: 20px;">Space / Tap to Jump<br>Down Arrow / Swipe Down to Crouch</p>
+                    <button id="btn-start-game">Start Playing ✨</button>
+                </div>
+                
+                <!-- Score Display -->
+                <div style="position:absolute; top:15px; right:20px; text-align:right; z-index:5;">
+                    <div id="game-score" style="font-weight:700; color:var(--text-main); font-size: 1.2rem;">Score: 0</div>
+                    <div id="game-high-score" style="font-weight:600; color:var(--text-light); font-size: 0.85rem;">High: 0</div>
+                </div>
+            </section>
+        </main>
+
+    </div>
+
+    <!-- CALENDAR DAY MODAL -->
+    <div id="calendar-modal" class="modal-overlay hidden">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="modal-date-title" style="font-weight: 700;">Tasks for ...</h3>
+                <button id="close-modal" class="icon-btn">❌</button>
+            </div>
+            
+            <ul id="modal-task-list" class="task-list modal-list">
+                <!-- tasks injected here -->
+            </ul>
+            
+            <div class="divider"></div>
+            
+            <form id="modal-task-form">
+                <input type="text" id="cal-task-title" placeholder="What's the plan?" required>
+                <input type="text" id="cal-task-desc" placeholder="Details (optional)">
+                <div class="row">
+                    <input type="time" id="cal-task-time">
+                    <select id="cal-task-type">
+                        <option value="study">Study 🔵</option>
+                        <option value="exam">Exam 🔴</option>
+                        <option value="personal">Personal 🟢</option>
+                    </select>
+                </div>
+                <button type="submit" style="width:100%">Add to Day ✨</button>
+            </form>
+            <button id="cal-clear-all" class="small-btn outline-btn" style="width:100%; margin-top:10px;">Clear all tasks for this day 🗑️</button>
+        </div>
+    </div>
+
+    <!-- API KEY MODAL -->
+    <div id="api-modal-overlay" class="modal-overlay hidden">
+        <div class="modal-card" style="max-width: 400px; padding: 30px; text-align: center;">
+            <h2 style="color:var(--text-main); margin-bottom:10px; font-size:1.5rem;">Safe Space AI Engine 🧠</h2>
+            <p style="color:var(--text-light); font-size:0.9rem; margin-bottom:20px;">To make me super smart, paste your Google Gemini API Key below. It stays 100% private locally on your computer. 🥔✨</p>
+            <form id="api-key-form">
+                <input type="password" id="gemini-api-key" placeholder="AIzaSy..." required style="margin-bottom: 20px; width: 100%; text-align: center;">
+                <div style="display:flex; justify-content: center; gap: 15px;">
+                    <button type="button" id="close-api-modal" class="small-btn outline-btn" style="width:100%">Cancel</button>
+                    <button type="submit" class="small-btn" style="width:100%">Save Key 🔑</button>
+                </div>
+            </form>
+            <p style="font-size:0.75rem; color:var(--text-light); margin-top:15px;">Get a free key from <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:var(--accent-pink);">Google AI Studio</a>.</p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <div id="toast-container" style="position: fixed; bottom: -60px; left: 50%; transform: translateX(-50%); background: var(--bg-soft); color: var(--text-main); font-weight: 600; padding: 12px 25px; border-radius: 30px; box-shadow: var(--shadow-hover); border: 1px solid var(--border-color); transition: bottom 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); z-index: 9999; text-align: center;">
+        Good evening, potato 🥔💖... don't forget to rest 🌙
+    </div>
+    
+    <script src="script.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
